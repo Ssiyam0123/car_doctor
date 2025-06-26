@@ -1,7 +1,7 @@
 import AboutUs from "@/components/AboutUs";
-import CarouselPlugin from "@/components/CarouselPlugin";
-import Hero from "@/components/Hero";
+
 import HeroSlider from "@/components/HeroSlider";
+import Hotline from "@/components/Hotline";
 import Service from "@/components/Service";
 import Image from "next/image";
 
@@ -12,6 +12,7 @@ export default function Home() {
 
       <AboutUs />
       <Service/>
+      <Hotline/>
     </section>
   );
 }
