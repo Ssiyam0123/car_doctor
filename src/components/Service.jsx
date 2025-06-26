@@ -1,13 +1,15 @@
-import { FlagTriangleRight } from "lucide-react";
+"use server";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
-import { connectDb } from "@/lib/mongodb";
+import {  connectDb } from "@/lib/mongodb";
+import Link from "next/link";
 
-const Service = async() => {
- 
-  const serviceCollecttion = connectDb('services')
-  const data = await (await serviceCollecttion).find({}).toArray()
+const Service = async () => {
+  const servicesData = await connectDb('services')
+    .find({})
+    .toArray();
 
   return (
     <section>
@@ -23,7 +25,7 @@ const Service = async() => {
       </div>
 
       <div className="grid grid-cols-12 gap-5 mt-10">
-        {data.map((card) => (
+        {servicesData?.map((card) => (
           <div
             className="col-span-12 md:col-span-6 lg:col-span-4 border-2 border-slate-400 p-4  rounded-2xl space-y-2"
             key={card?._id}
@@ -38,13 +40,18 @@ const Service = async() => {
             <h2 className="text-2xl font-semibold">{card?.title}</h2>
             <div className="text-xl text-orange-600 flex justify-between">
               <h3>Price: ${card?.price}</h3>
-              <h6><FlagTriangleRight/></h6>
-              
+              <Link href={`/services/${card?._id}`}>
+                <ArrowRight />
+              </Link>
             </div>
           </div>
         ))}
       </div>
-      <Button className={'btn mx-auto items-center flex mt-10 p-4 btn-outline bg-transparent border-orange-600 text-orange-600'}>
+      <Button
+        className={
+          "btn mx-auto items-center flex mt-10 p-4 btn-outline bg-transparent border-orange-600 text-orange-600"
+        }
+      >
         More Services
       </Button>
     </section>

@@ -1,17 +1,33 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient } from 'mongodb';
+
 const uri = process.env.MONGO_URI;
+const options = {
+  serverApi: {
+    version: '1',
+    strict: true,
+    deprecationErrors: true,
+  }
+};
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+let client;
+let clientPromise;
 
-export const connectDb = async (collecttionName) => {
-  const client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
- return client.db(process.env.DB_NAME).collection(collecttionName)
+if (!process.env.MONGO_URI) {
+  throw new Error('Please define MONGODB_URI');
 }
 
+if (process.env.NODE_ENV === 'development') {
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    global._mongoClientPromise = client.connect();
+  }
+  clientPromise = global._mongoClientPromise;
+} else {
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
+}
 
+export async function connectDb() {
+  const client = await clientPromise;
+  return client.db('car_doctor'); // Return the database instance
+}
