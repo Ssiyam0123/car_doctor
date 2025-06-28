@@ -42,3 +42,8 @@ export async function connectDb(collectionName) {
     throw error;
   }
 }
+
+export const collectionName = {
+  serviceCollection: "services",
+  userCollection: "users"
+}

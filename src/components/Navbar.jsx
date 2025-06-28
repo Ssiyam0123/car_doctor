@@ -54,15 +54,24 @@ const Navbar = () => {
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">
-          <Image src={"/assets/logo.svg"} height={50} width={60} alt="logo"></Image>
+          <Image
+            src={"/assets/logo.svg"}
+            height={50}
+            width={60}
+            alt="logo"
+          ></Image>
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navMenu()}</ul>
       </div>
       <div className="navbar-end">
-        
-        <a className="btn btn-outline border-orange-400 text-orange-600">Appointment</a>
+        <Link
+          href={"/sign-up"}
+          className="btn btn-outline border-orange-400 text-orange-600"
+        >
+          Appointment
+        </Link>
       </div>
     </div>
   );
