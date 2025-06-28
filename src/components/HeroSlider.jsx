@@ -71,7 +71,7 @@ export default function HeroSlider() {
             <div className="absolute inset-0 bg-black/50 rounded-lg"></div>
 
             {/* Content */}
-            <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-xl">
+            <div className="absolute left-10 top-1/2 -translate-y-1/2 text-white max-w-xl ml-10">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">{slide.heading}</h2>
               <p className="text-gray-200 mb-6">{slide.text}</p>
               <div className="flex gap-4">

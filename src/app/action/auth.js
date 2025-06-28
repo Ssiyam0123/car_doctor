@@ -1,22 +1,29 @@
 "use server";
 
 import { Timestamp } from "mongodb";
+import bcrypt from "bcryptjs";
 
 const { connectDb, collectionName } = require("@/lib/mongodb");
 
 export const registerUser = async (userInfo) => {
-  console.log({ userInfo });
+  const { name, email, password } = userInfo;
+  console.log(name, email, password);
   const userCollection = await connectDb(collectionName.userCollection);
-  const user = await userCollection.findOne({ email: userInfo?.email });
-  //   console.log(user);
+  const user = await userCollection.findOne({ email: email });
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  const userData = {
+    name,
+    email,
+    password: hashedPassword,
+    createdAt: new Date(),
+  };
 
   if (user) {
     return { success: null };
   } else {
-    const result = await userCollection.insertOne({
-      ...userInfo,
-      createdAt: new Date(),
-    });
+    const result = await userCollection.insertOne(userData);
     console.log(result);
     const { acknowledge, insertedId } = result;
     return { acknowledge, insertedId };
