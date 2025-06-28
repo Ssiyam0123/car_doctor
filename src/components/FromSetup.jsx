@@ -1,16 +1,18 @@
 "use client";
 
-import { registerUser } from "@/app/action/auth";
+import { loginUser, registerUser } from "@/app/action/auth";
 import { Facebook, Linkedin, RectangleGoggles } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const FromSetup = () => {
+const FromSetup = ({ typeOfFrom }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-   
-    await registerUser(data);
+  typeOfFrom == 'signup' && await registerUser(data);
+  typeOfFrom == 'login' && await loginUser(data)
+
   };
   return (
     <div>
@@ -18,16 +20,20 @@ const FromSetup = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col space-y-2"
       >
-        <label htmlFor="" className="text-xl font-semibold">
-          Name
-        </label>
-        <input
-          required
-          className="border-2 p-4 rounded-2xl text-xl"
-          type="text"
-          placeholder="Your name"
-          {...register("name", require)}
-        />
+        {typeOfFrom == "signup" && (
+          <div className="flex flex-col">
+            <label htmlFor="" className="text-xl font-semibold">
+              Name
+            </label>
+            <input
+              required
+              className="border-2 p-4 rounded-2xl text-xl"
+              type="text"
+              placeholder="Your name"
+              {...register("name", require)}
+            />
+          </div>
+        )}
         <label htmlFor="" className="text-xl font-semibold">
           Email
         </label>
@@ -63,6 +69,21 @@ const FromSetup = () => {
             className="bg-slate-300 p-2 rounded-full"
           />
         </div>
+        {typeOfFrom === "signup" ? (
+          <p className="text-center mt-5 font-semibold">
+            Already have an account?{" "}
+            <Link href={"/login"}>
+              <span className="text-orange-600">Login</span>
+            </Link>
+          </p>
+        ) : (
+          <p className="text-center mt-5 font-semibold">
+            Have an account?{" "}
+            <Link href={"/sign-up"}>
+              <span className="text-orange-600">Sign in</span>
+            </Link>
+          </p>
+        )}
       </div>
     </div>
   );

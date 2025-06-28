@@ -9,7 +9,7 @@ const SignUpPage = () => {
             <Image src={'/assets/images/login/login.svg'} height={502} width={406} alt='login' className='md:w-[50%] mx-auto'/>
         </div>
         <div className='w-full md:w-[70%] mx-auto'>
-            <FromSetup/>
+            <FromSetup typeOfFrom={'signup'}/>
         </div>
     </div>
   )

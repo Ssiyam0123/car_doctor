@@ -10,6 +10,7 @@ export const registerUser = async (userInfo) => {
   console.log(name, email, password);
   const userCollection = await connectDb(collectionName.userCollection);
   const user = await userCollection.findOne({ email: email });
+  console.log(user)
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -30,4 +31,18 @@ export const registerUser = async (userInfo) => {
   }
 
   return { success: flase };
+};
+
+export const loginUser = async (userInfo) => {
+  const { email, password } = userInfo;
+  console.log(email,password)
+  const userCollection = await connectDb(collectionName.userCollection);
+  const user = await userCollection.findOne({ email: email });
+  console.log(user)
+  console.log(user?.password)
+  if (user) {
+    const compare =await bcrypt.compare(password, user?.password);
+   if (compare) return console.log({ success: true })
+   else return console.log({ success: false })
+  } else return console.log( { success: false });
 };
