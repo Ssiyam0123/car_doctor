@@ -10,7 +10,14 @@ const FromSetup = ({ typeOfFrom }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-  typeOfFrom == 'signup' && await registerUser(data);
+  
+
+  if(typeOfFrom == 'signup'){
+    const result = await registerUser(data)
+    console.log(result)
+  }
+
+
   typeOfFrom == 'login' && await loginUser(data)
 
   };

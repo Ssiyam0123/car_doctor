@@ -2,15 +2,16 @@
 
 import { Timestamp } from "mongodb";
 import bcrypt from "bcryptjs";
+import { success } from "@/lib/apiResponse";
 
 const { connectDb, collectionName } = require("@/lib/mongodb");
 
 export const registerUser = async (userInfo) => {
   const { name, email, password } = userInfo;
-  console.log(name, email, password);
+  // console.log(name, email, password);
   const userCollection = await connectDb(collectionName.userCollection);
   const user = await userCollection.findOne({ email: email });
-  console.log(user)
+  // console.log(user)
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -22,7 +23,7 @@ export const registerUser = async (userInfo) => {
   };
 
   if (user) {
-    return { success: null };
+    return {success: true, userData}
   } else {
     const result = await userCollection.insertOne(userData);
     console.log(result);
