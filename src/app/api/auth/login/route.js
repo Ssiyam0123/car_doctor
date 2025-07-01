@@ -1,33 +1,44 @@
-import { error, success } from "@/lib/apiResponse";
+import { error, success } from "../../../../lib/apiResponse.js";
 import bcrypt from "bcryptjs";
-import { collectionName, connectDb } from "@/lib/mongodb";
+import { collectionName, connectDb } from "../../../../lib/mongodb.js";
+import { NextResponse } from "next/server.js";
 
 export async function POST(request) {
   try {
-    const body = request.json();
+    // Parse the request body
+    const body = await request.json();
     const { email, password } = body;
-    const userDb = connectDb(collectionName.userCollection);
-    const isExisted = await userDb.findOne({ email });
-
-    if (isExisted) {
-      const compare = bcrypt.compare(password, isExisted.password);
-      if (compare) {
-        return success({
-          message: "Login succesdsfull",
-          user: {
-            id: isExisted._id,
-            name: isExisted.name,
-            email: isExisted.email,
-            createdAt: isExisted.createdAt,
-          },
-        });
-      } else {
-        return error("invalid credintials", 401);
-      }
+    console.log(email,password)
+    
+    // Validate required fields
+    if (!email || !password) {
+      return error("Email and password are required", 400);
     }
 
-    return error("user doesnt exist");
+    const userDb = await connectDb(collectionName.userCollection);
+    const user = await userDb.findOne({ email });
+console.log(user)
+    if (!user) {
+      return error("Invalid credentials", 401); // Don't reveal if user exists
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+    if (!passwordMatch) {
+      return error("Invalid credentials", 401);
+    }
+
+    return success({
+      message: "Login successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+      },
+    });
+
   } catch (err) {
-    return error("login falied");
+    // console.error("Login error:", err);
+    return error("An error occurred during login", 500);
   }
 }

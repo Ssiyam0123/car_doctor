@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "../components/Navbar";
 import NextAuthProvider from "../providers/NextAuthProvider";
 import TanstackProvider from "../providers/TanstackProvider";
+import { ToastContainer } from "react-toastify";
 
 export const metadata = {
   title: "Create Next App",
@@ -12,12 +13,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* <TanstackProvider> */}
-          {/* <NextAuthProvider> */}
+        <TanstackProvider>
+          <NextAuthProvider>
             <Navbar />
             {children}
-          {/* </NextAuthProvider> */}
-        {/* </TanstackProvider> */}
+            <ToastContainer/>
+          </NextAuthProvider>
+        </TanstackProvider>
       </body>
     </html>
   );

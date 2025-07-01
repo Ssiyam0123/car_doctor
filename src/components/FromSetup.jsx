@@ -1,16 +1,19 @@
 "use client";
 
+import axios from "axios";
 import { loginUser, registerUser } from "../app/action/auth";
 import { Facebook, Linkedin, RectangleGoggles } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 const FromSetup = ({ typeOfFrom }) => {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
-  
+  console.log(data)
+  const {email, password} = data
 
   if(typeOfFrom == 'signup'){
     const result = await registerUser(data)
@@ -18,7 +21,11 @@ const FromSetup = ({ typeOfFrom }) => {
   }
 
 
-  typeOfFrom == 'login' && await loginUser(data)
+  if(typeOfFrom == 'login'){
+    const {data} = await axios.post('/api/auth/login',{email, password})
+    toast.success('successfully logged')
+
+  }
 
   };
   return (
