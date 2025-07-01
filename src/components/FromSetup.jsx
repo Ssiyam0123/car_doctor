@@ -13,16 +13,22 @@ const FromSetup = ({ typeOfFrom }) => {
 
   const onSubmit = async (data) => {
   console.log(data)
-  const {email, password} = data
+  const {name,email, password} = data
 
   if(typeOfFrom == 'signup'){
-    const result = await registerUser(data)
-    console.log(result)
+    // const result = await registerUser(data)
+    // console.log(result)
+    const {data} = await axios.post('/api/auth/sign-up',{name,email, password})
+    console.log(data)
+    toast.success('successfully createrd account')
+
+
   }
 
 
   if(typeOfFrom == 'login'){
     const {data} = await axios.post('/api/auth/login',{email, password})
+    console.log(data)
     toast.success('successfully logged')
 
   }

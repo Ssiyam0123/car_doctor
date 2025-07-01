@@ -17,12 +17,14 @@ export async function POST(request) {
 
     const userDb = await connectDb(collectionName.userCollection);
     const user = await userDb.findOne({ email });
-console.log(user)
+// console.log(user)
     if (!user) {
       return error("Invalid credentials", 401); // Don't reveal if user exists
     }
 
     const passwordMatch = await bcrypt.compare(password, user.password);
+
+    console.log(passwordMatch)
     if (!passwordMatch) {
       return error("Invalid credentials", 401);
     }
