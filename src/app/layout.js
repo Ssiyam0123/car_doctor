@@ -1,8 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import NextAuthProvider from "@/providers/NextAuthProvider";
-import TanstackProvider from "@/providers/TanstackProvider";
+import Navbar from "../components/Navbar";
+import NextAuthProvider from "../providers/NextAuthProvider";
+import TanstackProvider from "../providers/TanstackProvider";
 
 export const metadata = {
   title: "Create Next App",
@@ -13,12 +12,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <TanstackProvider>
-          <NextAuthProvider>
+        {/* <TanstackProvider> */}
+          {/* <NextAuthProvider> */}
             <Navbar />
             {children}
-          </NextAuthProvider>
-        </TanstackProvider>
+          {/* </NextAuthProvider> */}
+        {/* </TanstackProvider> */}
       </body>
     </html>
   );

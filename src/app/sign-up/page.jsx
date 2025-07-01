@@ -1,4 +1,4 @@
-import FromSetup from '@/components/FromSetup'
+import FromSetup from '../../components/FromSetup'
 import Image from 'next/image'
 import React from 'react'
 

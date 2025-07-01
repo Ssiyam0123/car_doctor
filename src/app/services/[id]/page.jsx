@@ -1,5 +1,5 @@
-import Banner from "@/components/Banner";
-import ServiceDetails from "@/components/ServiceDetails";
+import Banner from "../../../components/Banner";
+import ServiceDetails from "../../../components/ServiceDetails";
 import React from "react";
 
 const ServiceDetailsPage = ({ params }) => {

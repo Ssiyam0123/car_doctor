@@ -1,10 +1,8 @@
 "use server";
 
-import { Timestamp } from "mongodb";
 import bcrypt from "bcryptjs";
-import { success } from "@/lib/apiResponse";
 
-const { connectDb, collectionName } = require("@/lib/mongodb");
+import { connectDb, collectionName } from "../../lib/mongodb"
 
 export const registerUser = async (userInfo) => {
   const { name, email, password } = userInfo;

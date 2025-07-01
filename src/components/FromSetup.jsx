@@ -1,6 +1,6 @@
 "use client";
 
-import { loginUser, registerUser } from "@/app/action/auth";
+import { loginUser, registerUser } from "../app/action/auth";
 import { Facebook, Linkedin, RectangleGoggles } from "lucide-react";
 import Link from "next/link";
 import React from "react";

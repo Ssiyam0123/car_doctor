@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Button } from "./ui/button";
-import { connectDb } from "@/lib/mongodb";
+import { connectDb } from "../lib/mongodb";
 import Link from "next/link";
 
 const Service = async () => {

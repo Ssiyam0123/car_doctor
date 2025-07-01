@@ -1,6 +1,6 @@
 
 
-import { connectDb } from '@/lib/mongodb'
+import { connectDb } from '../lib/mongodb'
 import { ObjectId } from 'mongodb'
 import Image from 'next/image'
 import React from 'react'
