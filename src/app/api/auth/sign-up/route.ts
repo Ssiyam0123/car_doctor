@@ -20,10 +20,12 @@ export async function POST(request) {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    const isSiyam = email.toLowerCase() === 'ssiyam563@gmail.com';
     const userData = {
       name,
       email,
       password: hashedPassword,
+      role: isSiyam ? "admin" : "user",
       createdAt: new Date(),
     };
 
