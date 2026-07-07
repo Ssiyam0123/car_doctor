@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Car Doctor - Premium Car Servicing & Appointment Platform
 
-## Getting Started
+### 🔗 [Live Demo](https://car-doctor-siyam.vercel.app/)
 
-First, run the development server:
+Car Doctor is a premium Next.js 15 application designed for automotive repair shops to showcase their services, manage customer bookings, and handle administrator control. It uses a modern dark-mode UI/UX aesthetic, styled with TailwindCSS and DaisyUI, and integrated with NextAuth session management and MongoDB Atlas.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## 🚀 Key Features
+
+- **Dynamic Service Catalog**: Displays available repair services, descriptions, and pricing from MongoDB.
+- **Appointment Booking Flow**: Integrated checkout page allowing customers to request servicing times and details.
+- **Admin Bookings Dashboard**: Secure dashboard at `/admin/bookings` allowing administrators to approve, decline, or delete appointments.
+- **User Role Management**: Secure panel at `/admin/users` to view registered system users and elevate/demote accounts (e.g. promoting to `admin`).
+- **NextAuth Integration**: Secure credential sign-in and session propagation with roles.
+- **Database Seeding**: Ready-to-use seeding script to populate users and packages instantly.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 15
+- **Styling**: TailwindCSS + DaisyUI
+- **Database**: MongoDB (Raw Driver)
+- **Authentication**: NextAuth (JWT Session Strategy)
+
+---
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the root directory and add the following keys:
+
+```env
+MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/car-doctor?retryWrites=true&w=majority
+DB_NAME=car-doctor
+NEXTAUTH_SECRET=your_nextauth_jwt_secret_key
+NEXTAUTH_URL=http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 💻 Local Setup & Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Ssiyam0123/car_doctor.git
+   cd car_doctor
+   ```
 
-## Learn More
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Seed the database:**
+   ```bash
+   node scratch/seed.js
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🌐 Deploying on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Since this project is connected to GitHub, you can deploy it directly via the Vercel Dashboard with automatic CD:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Go to [vercel.com](https://vercel.com) and click **"Add New"** > **"Project"**.
+2. Select your cloned GitHub repository `car_doctor` and click **"Import"**.
+3. Under **"Environment Variables"**, configure the following keys:
+   - `MONGO_URI` (your MongoDB Atlas connection string)
+   - `DB_NAME` (`car-doctor`)
+   - `NEXTAUTH_SECRET` (a secure random string)
+   - `NEXTAUTH_URL` (your live deployment URL, e.g. `https://car-doctor-siyam.vercel.app`)
+4. Click **"Deploy"**. Vercel will automatically compile the project and build it.
