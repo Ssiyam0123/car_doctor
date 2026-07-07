@@ -16,6 +16,9 @@ const Navbar = () => {
           <Link href={"/"}>Services</Link>
         </li>
         <li>
+          <Link href={"/admin/bookings"}>Admin Bookings</Link>
+        </li>
+        <li>
           <Link href={"/"}>Blog</Link>
         </li>
         <li>
