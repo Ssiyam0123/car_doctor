@@ -16,10 +16,10 @@ const Navbar = () => {
           <Link href={"/"}>Home</Link>
         </li>
         <li>
-          <Link href={"/"}>About</Link>
+          <Link href={"/about"}>About</Link>
         </li>
         <li>
-          <Link href={"/"}>Services</Link>
+          <Link href={"/services"}>Services</Link>
         </li>
         {isAdmin && (
           <>
@@ -32,10 +32,10 @@ const Navbar = () => {
           </>
         )}
         <li>
-          <Link href={"/"}>Blog</Link>
+          <Link href={"/blog"}>Blog</Link>
         </li>
         <li>
-          <Link href={"/"}>Contac</Link>
+          <Link href={"/contact"}>Contact</Link>
         </li>
       </>
     );
