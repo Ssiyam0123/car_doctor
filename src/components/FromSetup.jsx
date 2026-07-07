@@ -8,6 +8,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+import { signIn } from "next-auth/react";
+
 const FromSetup = ({ typeOfFrom }) => {
   const { register, handleSubmit } = useForm();
 
@@ -27,9 +29,18 @@ const FromSetup = ({ typeOfFrom }) => {
 
 
   if(typeOfFrom == 'login'){
-    const {data} = await axios.post('/api/auth/login',{email, password})
-    console.log(data)
-    toast.success('successfully logged')
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false
+    });
+    
+    if (result?.error) {
+      toast.error(result.error);
+    } else {
+      toast.success('successfully logged');
+      window.location.href = "/";
+    }
 
   }
 

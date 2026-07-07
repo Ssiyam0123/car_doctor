@@ -1,8 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useSession, signOut } from "next-auth/react";
 
 const Navbar = () => {
+  const { data: session, status } = useSession();
+  const isAdmin = session?.user?.role === "admin";
+
   const navMenu = () => {
     return (
       <>
@@ -15,12 +21,16 @@ const Navbar = () => {
         <li>
           <Link href={"/"}>Services</Link>
         </li>
-        <li>
-          <Link href={"/admin/bookings"}>Admin Bookings</Link>
-        </li>
-        <li>
-          <Link href={"/admin/users"}>Admin Users</Link>
-        </li>
+        {isAdmin && (
+          <>
+            <li>
+              <Link href={"/admin/bookings"}>Admin Bookings</Link>
+            </li>
+            <li>
+              <Link href={"/admin/users"}>Admin Users</Link>
+            </li>
+          </>
+        )}
         <li>
           <Link href={"/"}>Blog</Link>
         </li>
@@ -32,7 +42,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm px-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -59,25 +69,39 @@ const Navbar = () => {
             {navMenu()}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">
+        <Link href="/" className="btn btn-ghost text-xl">
           <Image
             src={"/assets/logo.svg"}
             height={50}
             width={60}
             alt="logo"
           ></Image>
-        </a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navMenu()}</ul>
       </div>
-      <div className="navbar-end">
-        <Link
-          href={"/sign-up"}
-          className="btn btn-outline border-orange-400 text-orange-600"
-        >
-          Appointment
-        </Link>
+      <div className="navbar-end gap-3">
+        {status === "authenticated" ? (
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold text-gray-700 hidden sm:inline-block">
+              Hello, {session.user.name || "User"}
+            </span>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="btn btn-outline border-red-500 hover:bg-red-500 hover:text-white text-red-500"
+            >
+              Log Out
+            </button>
+          </div>
+        ) : (
+          <Link
+            href={"/login"}
+            className="btn btn-outline border-orange-400 text-orange-600"
+          >
+            Login / Appointment
+          </Link>
+        )}
       </div>
     </div>
   );
