@@ -3,6 +3,7 @@
 import { connectDb } from '../lib/mongodb'
 import { ObjectId } from 'mongodb'
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const ServiceDetails =async ({id}) => {
@@ -38,9 +39,11 @@ const ServiceDetails =async ({id}) => {
           <div className="bg-gray-100 p-6 rounded-lg mb-6">
             <h5 className="text-xl font-bold mb-4">Price ${serviceData.price}</h5>
             <p className="font-semibold mb-4">Protected Checkout</p>
-            <button className="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-primary-dark transition">
-              Book This Service
-            </button>
+            <Link href={`/checkout/${id}`} className="w-full block">
+              <button className="bg-orange-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-orange-700 transition w-full">
+                Book This Service
+              </button>
+            </Link>
           </div>
         </div>
       </div>
