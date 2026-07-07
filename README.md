@@ -43,7 +43,7 @@ NEXTAUTH_URL=http://localhost:3000
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Ssiyam0123/car_doctor.git
+   git clone https://github.com/siyam-io/car_doctor.git
    cd car_doctor
    ```
 
